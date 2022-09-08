@@ -35,7 +35,7 @@ enemyY = 30
 enemy_group = pygame.sprite.Group()
 gameGoOn = True
 enemy_counter = 0
-killedEnemys = enemy_counter
+killedEnemys = 0
 newEnemys = True
 
 for i in range(5):
@@ -64,7 +64,7 @@ font_small = pygame.font.SysFont("Arial", 20)
 game_end = font.render("Spiel gewonnen", True, pink)
 game_over = font.render("Game Over", True, pink)
 next_level = font.render("Level 2", True, pink)
-score_board = font_small.render("Sie haben: " + str(enemy_counter) + " Gegner getötet", True, pink)
+score_board = font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink)
 
 running = True
 while running:
@@ -87,7 +87,7 @@ while running:
     if pygame.sprite.spritecollide(unicorn1, enemy_group, False):
         gameGoOn = False
         screen.blit(game_over, (400, 300))
-        screen.blit(score_board, (400, 300))
+        screen.blit(font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (400, 300))
         isShooting = False
 
     if pygame.sprite.spritecollide(laser1, enemy_group, True):
@@ -95,6 +95,7 @@ while running:
         isShooting = True
         enemy_counter -= 1
         killedEnemys += 1
+        print(killedEnemys)
 
     zaehler += 1
 
@@ -118,7 +119,9 @@ while running:
         zaehler = 0
 
     if not gameGoOn and enemy_counter != 0:
+        screen.blit(font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (400, 300))
         screen.blit(game_over, (500, 200))
+        gameGoOn = False
 
     if level_counter ==2:
         backImage1.update()
@@ -131,17 +134,14 @@ while running:
         elif level_counter == 1:
             level_counter -= 1
         elif level_counter == 0:
-            screen.blit(score_board, (500, 100))
+            screen.blit(font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (500, 100))
             screen.blit(game_end, (500, 200))
             gameGoOn = False
 
     if level_counter == 1:
-        print(level_counter)
-        print(gameGoOn)
         enemyX = 900
         enemyY = 30
         if newEnemys:
-            print(newEnemys)
             for i in range(5):
                 for j in range(10):
                     enemy_group.add(enemy.Enemy(enemyX, enemyY))
@@ -154,7 +154,6 @@ while running:
         newEnemys = False
         backImage2.update()
         map_group2.draw(screen)
-        print(enemy_counter)
 
     item_group.update(itemUsed)
 
