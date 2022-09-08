@@ -87,7 +87,7 @@ while running:
     if pygame.sprite.spritecollide(unicorn1, enemy_group, False):
         gameGoOn = False
         screen.blit(game_over, (400, 300))
-        screen.blit(font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (400, 300))
+        screen.blit(font_small.render("Du haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (400, 300))
         isShooting = False
 
     if pygame.sprite.spritecollide(laser1, enemy_group, True):
@@ -95,7 +95,6 @@ while running:
         isShooting = True
         enemy_counter -= 1
         killedEnemys += 1
-        print(killedEnemys)
 
     zaehler += 1
 
@@ -118,11 +117,6 @@ while running:
     if zaehler >= 20:
         zaehler = 0
 
-    if not gameGoOn and enemy_counter != 0:
-        screen.blit(font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (400, 300))
-        screen.blit(game_over, (500, 200))
-        gameGoOn = False
-
     if level_counter ==2:
         backImage1.update()
         map_group1.draw(screen)
@@ -134,7 +128,7 @@ while running:
         elif level_counter == 1:
             level_counter -= 1
         elif level_counter == 0:
-            screen.blit(font_small.render("Sie haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (500, 100))
+            screen.blit(font_small.render("Du haben: " + str(killedEnemys) + " Gegner getötet", True, pink), (500, 100))
             screen.blit(game_end, (500, 200))
             gameGoOn = False
 
