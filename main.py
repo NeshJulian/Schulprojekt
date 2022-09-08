@@ -37,6 +37,14 @@ gameGoOn = True
 enemy_counter = 0
 killedEnemys = 0
 newEnemys = True
+#Hintergrund musik
+pygame.mixer.pre_init()  # vorher initialisieren
+pygame.mixer.music.load('sounds/unicorn-classic-guitar-and-shepherd.mp3')
+pygame.mixer.music.play(loops=-1)
+#EventSound
+sound = pygame.mixer.Sound('sounds/Laser_Shot.wav')
+sound.set_volume(3)
+sound.play()
 
 for i in range(5):
     for j in range(10):
@@ -83,6 +91,7 @@ while running:
     if pygame.sprite.spritecollide(unicorn1, item_group, True):
         laser1.boost = True
         itemUsed = True
+        sound.play(loops=0)
 
     if pygame.sprite.spritecollide(unicorn1, enemy_group, False):
         gameGoOn = False
