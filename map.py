@@ -7,10 +7,10 @@ class Map(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(image, (image.get_width(), 1500))
         self.rect = self.image.get_rect()
 
-        if imgpath == 'background/Hintergrund1.png':
-            self.rect.center = (-2000, 0)
+        if imgpath == 'background/Hintergrund3.png':
+            self.rect.center = (-550, 0)
         else:
-            self.rect.center = (-1100, 0)
+            self.rect.center = (-550, 0)
 
     def update(self):
         if self.rect.x < self.image.get_rect().x:
