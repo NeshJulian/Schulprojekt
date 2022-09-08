@@ -15,15 +15,10 @@ Screen_HEIGHT = 750
 pygame.init()
 screen = pygame.display.set_mode((Screen_WIDTH, Screen_HEIGHT))
 pygame.display.set_caption("Pink Fluffy Spaceinvaders, dancing on Spaceships")
-level_counter = 2
+level_counter = 1
 #Farben
 white = (0, 0, 0)
 pink = (255, 0, 255)
-#Fonts
-font = pygame.font.SysFont("Arial", 60)
-game_end = font.render("Spiel gewonnen", True, pink)
-game_over = font.render("Game Over", True, pink)
-next_level = font.render("Level 2", True, pink)
 #Hintergrund
 backImage1 = map.Map('background/Hintergrund1.png')
 backImage2 = map.Map('background/Hintergrund2.png')
@@ -41,15 +36,16 @@ enemyY = 30
 enemy_group = pygame.sprite.Group()
 gameGoOn = True
 enemy_counter = 0
+baseEnemys = enemy_counter
 newEnemys = True
 
-for i in range(5):
-    for j in range(10):
-        enemy_group.add(enemy.Enemy(enemyX, enemyY))
-        enemyY += 75
-        enemy_counter += 1
-    enemyX -= 100
-    enemyY = 30
+#for i in range(5):
+ #   for j in range(10):
+  #      enemy_group.add(enemy.Enemy(enemyX, enemyY))
+   #     enemyY += 75
+    #    enemy_counter += 1
+    #enemyX -= 100
+    #enemyY = 30
 
 #Items
 itemX = random.randint(300, 500)
@@ -62,6 +58,14 @@ laserY = -50
 laser1 = laser.Laser(laserX, laserY)
 laser_group = pygame.sprite.GroupSingle(laser1)
 isShooting = True
+
+#Fonts
+font = pygame.font.SysFont("Arial", 60)
+font_small = pygame.font.SysFont("Arial", 20)
+game_end = font.render("Spiel gewonnen", True, pink)
+game_over = font.render("Game Over", True, pink)
+next_level = font.render("Level 2", True, pink)
+score_board = font_small.render("Sie haben: " + str(enemy_counter) + " Gegner getötet", True, pink)
 
 running = True
 while running:
@@ -126,15 +130,19 @@ while running:
         backImage1.update()
         map_group1.draw(screen)
     elif level_counter == 1 and gameGoOn:
+        enemyX = 50
+        enemyY = 30
         if newEnemys:
             for i in range(5):
                 for j in range(10):
                     enemy_group.add(enemy.Enemy(enemyX, enemyY))
                     enemyY += 75
                     enemy_counter += 1
-            enemyX -= 100
-            enemyY = 30
+                enemyX -= 100
+                enemyY = 30
             print(enemy_counter)
+            baseEnemys = enemy_counter
+
         newEnemys = False
         backImage2.update()
         map_group2.draw(screen)
