@@ -19,8 +19,8 @@ level_counter = 2
 white = (0, 0, 0)
 pink = (255, 0, 255)
 #Hintergrund
-backImage1 = map.Map('background/Hintergrund1.png')
-backImage2 = map.Map('background/Hintergrund2.png')
+backImage1 = map.Map('background/Hintergrund3.png')
+backImage2 = map.Map('background/Hintergrund4.png')
 map_group1 = pygame.sprite.GroupSingle(backImage1)
 map_group2 = pygame.sprite.GroupSingle(backImage2)
 #Player
