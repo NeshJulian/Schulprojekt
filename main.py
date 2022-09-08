@@ -1,5 +1,4 @@
 import random
-
 import pygame
 import enemy
 import item
@@ -36,7 +35,7 @@ enemyY = 30
 enemy_group = pygame.sprite.Group()
 gameGoOn = True
 enemy_counter = 0
-baseEnemys = enemy_counter
+killedEnemys = enemy_counter
 newEnemys = True
 
 for i in range(5):
@@ -51,7 +50,7 @@ for i in range(5):
 itemX = random.randint(300, 500)
 itemY = random.randint(50, 700)
 item_group = pygame.sprite.GroupSingle(item.Item(itemX, itemY))
-itemUsed = True
+itemUsed = False
 #Laser
 laserX = -50
 laserY = -50
@@ -83,18 +82,21 @@ while running:
 
     if pygame.sprite.spritecollide(unicorn1, item_group, True):
         laser1.boost = True
+        itemUsed = True
 
     if pygame.sprite.spritecollide(unicorn1, enemy_group, False):
         gameGoOn = False
+        screen.blit(game_over, (400, 300))
+        screen.blit(score_board, (400, 300))
         isShooting = False
 
     if pygame.sprite.spritecollide(laser1, enemy_group, True):
         laser1.rect.x = -100
         isShooting = True
         enemy_counter -= 1
+        killedEnemys += 1
 
     zaehler += 1
-    item_group.update(itemUsed)
 
     if gameGoOn:
         enemy_group.update()
@@ -115,24 +117,31 @@ while running:
     if zaehler >= 20:
         zaehler = 0
 
-    if not gameGoOn:
-        #TODO Funktioniert noch nicht
-        screen.blit(game_over, (30, 50))
-
-    if enemy_counter == 0:
-        level_counter -= 1
-        screen.blit(game_end, (10, 10))
-
-    if level_counter == 0:
-        screen.blit(game_end, (10, 10))
+    if not gameGoOn and enemy_counter != 0:
+        screen.blit(game_over, (500, 200))
 
     if level_counter ==2:
         backImage1.update()
         map_group1.draw(screen)
-    elif level_counter == 1 and gameGoOn:
-        enemyX = 50
+
+    if enemy_counter == 0:
+        if level_counter == 2:
+            level_counter -= 1
+            screen.blit(next_level, (500, 300))
+        elif level_counter == 1:
+            level_counter -= 1
+        elif level_counter == 0:
+            screen.blit(score_board, (500, 100))
+            screen.blit(game_end, (500, 200))
+            gameGoOn = False
+
+    if level_counter == 1:
+        print(level_counter)
+        print(gameGoOn)
+        enemyX = 900
         enemyY = 30
         if newEnemys:
+            print(newEnemys)
             for i in range(5):
                 for j in range(10):
                     enemy_group.add(enemy.Enemy(enemyX, enemyY))
@@ -140,17 +149,22 @@ while running:
                     enemy_counter += 1
                 enemyX -= 100
                 enemyY = 30
-            print(enemy_counter)
-            baseEnemys = enemy_counter
-
+            itemUsed = False
+            item_group.add(item.Item(itemX, itemY))
         newEnemys = False
         backImage2.update()
         map_group2.draw(screen)
+        print(enemy_counter)
 
-    unicorn_group.draw(screen)
+    item_group.update(itemUsed)
+
+    if gameGoOn:
+        laser_group.draw(screen)
+        unicorn_group.draw(screen)
+
+
     item_group.draw(screen)
     enemy_group.draw(screen)
-    laser_group.draw(screen)
     pygame.display.update()
 
 pygame.quit()

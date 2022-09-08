@@ -27,7 +27,7 @@ class Unicorn(pygame.sprite.Sprite):
         self.image = self.image_right[self.frame_index]
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.cal_y = 0
+        self.cal_y = self.rect.y
         self.step_Distance = 5
         self.direction = 0
         self.last_direction = self.direction
@@ -60,8 +60,6 @@ class Unicorn(pygame.sprite.Sprite):
         self.updatePosition()
         if zaehler >= 20:
             self.updateImage()
-
-        #print(self.fullimage.get_rect())
 
 
 

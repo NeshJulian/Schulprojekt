@@ -16,7 +16,10 @@ class Item(pygame.sprite.Sprite):
         self.rect.x -= 1
 
     def respawnPoop(self, itemUsed):
-        if self.rect.x <= 0 and itemUsed:
+
+
+
+        if self.rect.x <= 0 and not itemUsed:
             self.rect.x = random.randint(300, 500)
             self.rect.y = random.randint(50, 700)
 
