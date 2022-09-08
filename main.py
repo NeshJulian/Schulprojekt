@@ -15,7 +15,7 @@ Screen_HEIGHT = 750
 pygame.init()
 screen = pygame.display.set_mode((Screen_WIDTH, Screen_HEIGHT))
 pygame.display.set_caption("Pink Fluffy Spaceinvaders, dancing on Spaceships")
-level_counter = 1
+level_counter = 2
 #Farben
 white = (0, 0, 0)
 pink = (255, 0, 255)
@@ -39,13 +39,13 @@ enemy_counter = 0
 baseEnemys = enemy_counter
 newEnemys = True
 
-#for i in range(5):
- #   for j in range(10):
-  #      enemy_group.add(enemy.Enemy(enemyX, enemyY))
-   #     enemyY += 75
-    #    enemy_counter += 1
-    #enemyX -= 100
-    #enemyY = 30
+for i in range(5):
+    for j in range(10):
+        enemy_group.add(enemy.Enemy(enemyX, enemyY))
+        enemyY += 75
+        enemy_counter += 1
+    enemyX -= 100
+    enemyY = 30
 
 #Items
 itemX = random.randint(300, 500)
